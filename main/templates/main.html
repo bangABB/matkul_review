@@ -83,15 +83,21 @@
                     <th>Jumlah Mahasiswa</th>
                     <th>Nilai</th>
                 </tr>
-                {% for item in view %}
-                <tr>
-                    <td>{{ item.name }}</td>
-                    <td>{{ item.class }}</td>
-                    <td>{{ item.deskripsi }}</td>
-                    <td>{{ item.amount }}</td>
-                    <td>{{ item.nilai }}</td>
-                </tr>
-                {% endfor %}
+                {% if view %}
+                    {% for item in view %}
+                        <tr>
+                            <td>{{ item.name }}</td>
+                            <td>{{ item.class }}</td>
+                            <td>{{ item.deskripsi }}</td>
+                            <td>{{ item.amount }}</td>
+                            <td>{{ item.nilai }}</td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="5">{{ empty_message }}</td>
+                    </tr>
+                {% endif %}
             </table>
         </div>
     </div>
