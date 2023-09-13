@@ -61,7 +61,7 @@ link ke github matkul-review : https://github.com/bangABB/matkul_review
     v v
     models.py items.html
 
-    ![ini contohnya] (https://github.com/bangABB/matkul_review/blob/main/modelfigma.png?raw=true)
+    ![alt text](https://github.com/bangABB/matkul_review/blob/main/modelfigma.png?raw=true)
 
 Dalam diagram ini, browser web pengguna memulai permintaan ketika mereka memasukkan URL atau mengklik tautan. Permintaan ini diterima oleh aplikasi web Django, yang memprosesnya dan mengirimkan respons kembali ke client. File urls.py bertanggung jawab untuk menentukan bagaimana cara mengarahkan permintaan URL ini dan menghubungkan URL yang diterima dari client ke fungsi tindakan yang disesuaikan dalam views.py. Ketika permintaan URL diteruskan oleh urls.py, views.py mengambil alih untuk memproses permintaan tersebut. views.py dapat mengakses model untuk memanipulasi data dan merender items.html atau mengembalikan respons JSON, tergantung pada kasus penggunaan. models.py mendefinisikan struktur data dalam aplikasi dan memberikan definisi model yang digunakan untuk berinteraksi dengan database atau sumber data lainnya. models.py dapat digunakan oleh views.py untuk mengambil atau menyimpan data. items.html digunakan untuk mengatur tampilan yang akan diberikan kepada pengguna. views.py dapat merender items.html dengan data yang diambil dari model dan kemudian mengirimkannya kembali ke client sebagai respons HTML yang siap ditampilkan.
 
