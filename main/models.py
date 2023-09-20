@@ -4,7 +4,7 @@ from django.db import models
 
 class Product(models.Model):
     name = models.CharField(max_length=255)
-    classes = models.CharField(max_length=1)
-    description = models.TextField()
-    amount = models.IntegerField()
+    kelas = models.CharField(max_length=1)
+    deskripsi = models.TextField()
+    jumlah_mahasiswa = models.IntegerField()
     nilai = models.CharField(max_length=2)

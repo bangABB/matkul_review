@@ -3,66 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Link to your external CSS file here -->
+    <link rel="stylesheet" href="path/to/your/style.css">
+    <!-- Include your external fonts here -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
     <style>
-        * {
-            box-sizing: border-box;
-            font-family: 'Poppins';
+        /* Add custom CSS styles here */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
         }
 
         .container {
-            justify-content: center;
-            display: flex;
+            width: 80%;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
         .header-category {
-            margin-left: 40px;
-            margin-right: 40px;
-            font-weight: 900;
-            font-size: 24px;
-            color: rgb(23, 18, 63);
+            background-color: #363636;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
         }
 
-        span {
-            font-size: 12px;
-            justify-content: center;
-            align-items: center;
-            color: rgb(138, 136, 160);
+        .header-category h3 {
+            font-size: 24px;
+        }
+
+        .header-category span {
+            font-size: 14px;
         }
 
         hr {
-            border: 1px solid rgb(227, 226, 236);
+            border: 1px solid #fff;
         }
 
-        .table-category {
-            margin: 0 auto;
+        .nama-kelas {
+            font-size: 16px;
         }
 
-        table, th, td {
-            padding: 2rem;
+        .table-category table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
         }
 
-        th {
-            color: rgb(23, 18, 63);
-            background-color: rgb(227, 226, 236);
+        .table-category th, .table-category td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
         }
 
-        td {
-            background-color: rgb(243, 243, 247);
+        .table-category th {
+            background-color: #f2f2f2;
         }
 
-        .category {
-            margin-top: 80px;
-            margin-bottom: 80px;
-            margin-inline: 80px;
+        .table-category tr:nth-child(even) {
+            background-color: #f2f2f2;
         }
 
-        p {
-            justify-content: center;
-            display: flex;
+        .table-category tr:hover {
+            background-color: #ddd;
+        }
+
+        .add-product-button {
+            margin-top: 20px;
+        }
+
+        .add-product-button a {
+            text-decoration: none;
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .add-product-button a:hover {
+            background-color: #0056b3;
         }
     </style>
     <title>Inventory</title>
@@ -71,34 +94,43 @@
 <div class="container">
     <div class="category">
         <div class="header-category">
-            <h3 class="available-stock">{{application_data.nama_aplikasi}} <span>{{application_data.tanggal_dibuat}}</span><hr></h3>
-                <p class="nama-kelas">Nama : {{user_data.nama_user}}  <br>Kelas : {{user_data.kelas_user}}<br>NPM : {{user_data.NPM}}</p>
+            <h3 class="available-stock">{{ application_data.nama_aplikasi }} <span>{{ application_data.tanggal_dibuat }}</span><hr></h3>
+            <p class="nama-kelas">Nama : {{ user_data.nama_user }}  <br>Kelas : {{ user_data.kelas_user }}<br>NPM : {{ user_data.NPM }}</p>
         </div>
         <div class="table-category">
-            <table>
-                <tr>
-                    <th>Nama Kelas</th>
-                    <th>Kelas</th>
-                    <th>Deskripsi kelas</th>
-                    <th>Jumlah Mahasiswa</th>
-                    <th>Nilai</th>
-                </tr>
-                {% if view %}
-                    {% for item in view %}
+            <!-- Check if there are products to display -->
+            {% if products %}
+                <table>
+                    <tr>
+                        <th>Nama Kelas</th>
+                        <th>Kelas</th>
+                        <th>Deskripsi kelas</th>
+                        <th>Jumlah Mahasiswa</th>
+                        <th>Nilai</th>
+                    </tr>
+                    {% for product in products %}
                         <tr>
-                            <td>{{ item.name }}</td>
-                            <td>{{ item.class }}</td>
-                            <td>{{ item.deskripsi }}</td>
-                            <td>{{ item.amount }}</td>
-                            <td>{{ item.nilai }}</td>
+                            <td>{{ product.name }}</td>
+                            <td>{{ product.kelas }}</td>
+                            <td>{{ product.deskripsi }}</td>
+                            <td>{{ product.jumlah_mahasiswa }}</td>
+                            <td>{{ product.nilai }}</td>
                         </tr>
                     {% endfor %}
-                {% else %}
                     <tr>
-                        <td colspan="5">{{ empty_message }}</td>
+                        <td colspan="3"></td>
+                        <td>Total Mahasiswa:</td>
+                        <td>{{ total_jumlah_mahasiswa }}</td>
                     </tr>
-                {% endif %}
-            </table>
+                </table>
+            {% else %}
+                <!-- Display a message when there are no products -->
+                <p>No products available.</p>
+            {% endif %}
+            <div class="add-product-button">
+                <a href="{% url 'main:create_product' %}">Add New Product</a>
+            </div>
+            
         </div>
     </div>
 </div>
