@@ -1,6 +1,36 @@
 Link ke matkul review : https://matkul-review.adaptable.app/main/
 link ke github matkul-review : https://github.com/bangABB/matkul_review
 
+
+[TUGAS 4]
+
+1. Django UserCreationForm adalah bagian dari Django's built-in authentication system yang digunakan untuk membuat formulir pendaftaran pengguna. Formulir ini  memudahkan pengembang untuk membuat halaman pendaftaran pengguna dengan cepat. Kelebihannya adalah:
+    - Mudah Digunakan: Form ini telah disiapkan dan dapat digunakan dengan mudah dalam proyek Django tanpa perlu menulis kode form dari awal.
+    - Validasi Terintegrasi: Form ini mencakup validasi bawaan untuk memastikan data yang dimasukkan pengguna sesuai dengan persyaratan yang diinginkan.
+
+    Kekurangan :
+    - UI jelek
+    - keamanan ga terjamin
+
+2. - Autentikasi adalah proses mengidentifikasi pengguna dengan memverifikasi identitasnya, seperti username dan password. Dalam konteks Django, ini melibatkan pendaftaran pengguna, login, dan verifikasi identitas pengguna.
+   -  Otorisasi adalah proses memberikan akses atau izin kepada pengguna setelah mereka diotentikasi. Ini melibatkan pengaturan hak akses, seperti siapa yang bisa mengakses halaman tertentu atau melakukan tindakan tertentu dalam aplikasi.
+
+3. Cookies adalah data kecil yang disimpan di sisi klien (browser) yang digunakan untuk mengidentifikasi pengguna dan menyimpan informasi sesi. Dalam konteks aplikasi web, cookies digunakan untuk mengelola data sesi pengguna, seperti informasi login atau preferensi.
+
+4.  - Penggunaan cookies dalam pengembangan web dapat aman jika dilakukan dengan benar. Risiko potensial termasuk serangan seperti Cross-Site Scripting (XSS) jika data cookies tidak divalidasi dengan baik atau disimpan dengan cara yang rentan. Selain itu, ada risiko pencurian sesi jika cookies tidak dienkripsi dengan baik.
+
+Untuk menjaga keamanan, pastikan untuk menggunakan HTTPS untuk mengenkripsi komunikasi dan gunakan fitur-fitur keamanan seperti HttpOnly dan Secure flags dalam cookies Anda.
+
+5. - membuat fungsi yang dibutuhkan (login, logout, register)
+    - mengimplementasikan page yang sesuai (login.html misalnya) dan menghubungkan ke urls.py agar terbaca
+    - agar tidak bisa mengakses main sblm login, maka kita buat authorisation di atas fungsi showmain
+    - untuk date time sendiri -> tiap login, disimpan date time sekarang di context org tersebut, value baru ini direplace, yg lama di hapus
+    - migrate
+
+
+**BONUS**
+- untuk bonus saya juga implementasikan langkah tadi, bedanya ada function yang dibuat di models sehingga nanti ga susah kalo mau ngelakuin apa apa, langsung ke product
+
 [TUGAS 3]
 1. Apa perbedaan antara form POST dan form GET dalam Django?
     - Form Post

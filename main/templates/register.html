@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+    <title>Register</title>
+{% endblock meta %}
+
+{% block content %}  
+<style>
+    /* Style for the page background */
+    body {
+        background-color: #8999D3;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+
+    /* Style for the login container */
+    .login {
+        width: 300px;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+        text-align: center;
+    }
+
+    /* Style for the form elements */
+    table {
+        width: 100%;
+    }
+
+    td {
+        padding: 10px;
+        text-align: left;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="email"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    input[type="submit"] {
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+
+    /* Style for the message list */
+    ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    li {
+        color: #ff3333;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    /* Additional styling for the container */
+    h1 {
+        color: #333;
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+</style>
+
+<div class="login">
+    <h1>Register</h1>  
+    <form method="POST" >  
+        {% csrf_token %}  
+        <table>  
+            {{ form.as_table }}  
+            <tr>  
+                <td></td>
+                <td><input type="submit" name="submit" value="Daftar"/></td>  
+            </tr>  
+        </table>  
+    </form>
+
+    {% if messages %}  
+        <ul>   
+            {% for message in messages %}  
+                <li>{{ message }}</li>  
+            {% endfor %}  
+        </ul>   
+    {% endif %}
+</div>  
+
+{% endblock content %}

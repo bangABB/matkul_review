@@ -7,11 +7,12 @@
     <link rel="stylesheet" href="path/to/your/style.css">
     <!-- Include your external fonts here -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=R-Flex&display=swap" rel="stylesheet"> <!-- Add R-Flex font -->
     <style>
         /* Add custom CSS styles here */
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: #f0f0f0;
+            background-color: #8999D3; /* Use the color you provided as the background */
             margin: 0;
             padding: 0;
         }
@@ -33,6 +34,8 @@
 
         .header-category h3 {
             font-size: 24px;
+            font-family: 'R-Flex', sans-serif; /* Apply R-Flex font */
+            margin: 0; /* Remove margin to align text better */
         }
 
         .header-category span {
@@ -87,6 +90,21 @@
         .add-product-button a:hover {
             background-color: #0056b3;
         }
+
+        /* Adjust button styling */
+        button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
     </style>
     <title>Inventory</title>
 </head>
@@ -95,7 +113,7 @@
     <div class="category">
         <div class="header-category">
             <h3 class="available-stock">{{ application_data.nama_aplikasi }} <span>{{ application_data.tanggal_dibuat }}</span><hr></h3>
-            <p class="nama-kelas">Nama : {{ user_data.nama_user }}  <br>Kelas : {{ user_data.kelas_user }}<br>NPM : {{ user_data.NPM }}</p>
+            <p class="nama-kelas">Nama : {{ user_data.user }}  <br>Kelas : {{ user_data.kelas_user }}<br>NPM : {{ user_data.NPM }}<br> <h5>login pada : {{ last_login }}</h5></p>
         </div>
         <div class="table-category">
             <!-- Check if there are products to display -->
@@ -115,6 +133,16 @@
                             <td>{{ product.deskripsi }}</td>
                             <td>{{ product.jumlah_mahasiswa }}</td>
                             <td>{{ product.nilai }}</td>
+                            <td>
+                                <form method="post" action="{% url 'main:delete_product' product.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit">Delete</button>
+                                </form>
+                            </td>
+                            <td><form method="post" action="{% url 'main:delete_product_by_one' product.id %}">
+                                {% csrf_token %}
+                                <button type="submit">Delete By One</button>
+                            </form></td>
                         </tr>
                     {% endfor %}
                     <tr>
@@ -130,7 +158,11 @@
             <div class="add-product-button">
                 <a href="{% url 'main:create_product' %}">Add New Product</a>
             </div>
-            
+            <a href="{% url 'main:logout' %}">
+                <button>
+                    Logout
+                </button>
+            </a>
         </div>
     </div>
 </div>
