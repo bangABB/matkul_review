@@ -19,6 +19,13 @@ class Product(models.Model):
             self.jumlah_mahasiswa -= 1
             self.save()
 
+    def add_product_by_one(self):
+        """
+        add the 'jumlah_mahasiswa' variable by one.
+        """
+        self.jumlah_mahasiswa += 1
+        self.save()
+
     @classmethod
     def delete_product(cls, product_id):
         """

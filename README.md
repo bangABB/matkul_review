@@ -2,6 +2,40 @@ Link ke matkul review : https://matkul-review.adaptable.app/main/
 link ke github matkul-review : https://github.com/bangABB/matkul_review
 
 
+
+[TUGAS 5]
+1. Kustomisasi :
+
+     - Kustomisasi desain pada templat HTML yang telah dibuat pada Tugas 4 dengan menggunakan CSS atau CSS framework (seperti Bootstrap, Tailwind, Bulma) dengan ketentuan sebagai berikut **DONE**
+     
+     - Kustomisasi halaman daftar inventori menjadi lebih berwarna maupun menggunakan apporach lain seperti menggunakan Card. **DONE**
+
+2. 1. Elemen selector itu seperti kita menerapkan semua style ke semua elemen, ibaratnya style dengan tipe global dan semua style yang ada akan terkena efeknya, kapan waktu yg tepat? mungkin ketika kita mau punya tema yang mirip2 antar satu komponen dengan yg lain
+    
+    2. HTML5 adalah versi terbaru dari bahasa markup HTML. Beberapa tag HTML5 yang saya ketahui termasuk:
+        - Header
+        - Footer
+        - nav
+3. - Margin adalah ruang di luar elemen HTML. Ini memengaruhi jarak antara elemen dengan elemen lain di sekitarnya. Margin tidak memiliki latar belakang atau warna.
+    - Padding adalah ruang di sekitar konten dalam elemen HTML. Ini memengaruhi jarak antara konten elemen dan batas elemen itu sendiri. Padding dapat memiliki latar belakang atau warna, dan itu mempengaruhi tampilan elemen.
+4.  - Tailwind:
+        - Tailwind adalah framework CSS utility-first, yang berarti itu memberikan banyak kelas utilitas yang dapat digunakan untuk membangun antarmuka web dengan lebih fleksibel.
+        Anda perlu menulis HTML dengan menggunakan kelas-kelas Tailwind untuk mengatur tampilan elemen.
+        Cocok untuk proyek-proyek yang membutuhkan desain kustom dan tidak ingin terikat dengan gaya desain tertentu. Gunakan Tailwind jika Anda ingin lebih banyak kustomisasi dan fleksibilitas dalam desain tampilan Anda dan siap untuk menulis lebih banyak kode HTML untuk mengatur tampilan. Tailwind cocok untuk proyek-proyek yang membutuhkan desain yang sangat khusus dan unik.
+
+    - Bootstrap:
+        - Bootstrap adalah framework CSS yang lebih tradisional dengan komponen-komponen yang sudah dirancang sebelumnya. Ini memberikan lebih banyak komponen siap pakai yang dapat digunakan.
+        Anda perlu mengikuti struktur komponen Bootstrap yang telah ditentukan.
+        Cocok untuk proyek-proyek yang membutuhkan pengembangan cepat dengan tampilan yang konsisten.
+        Gunakan Bootstrap jika Anda ingin membangun proyek dengan cepat dan menginginkan tampilan yang konsisten dan siap pakai.
+
+5. Cara saya kustomisasi halaman login register dan tambah inventori --> memikirkan desain, membuat styling, implementasikan styling tadi
+- Daftar inventori sudah di kustomisasi
+
+- bonus sudah di kustomisasi dgn cara mengambil nth-last-child dari table nya
+
+
+
 [TUGAS 4]
 
 1. Django UserCreationForm adalah bagian dari Django's built-in authentication system yang digunakan untuk membuat formulir pendaftaran pengguna. Formulir ini  memudahkan pengembang untuk membuat halaman pendaftaran pengguna dengan cepat. Kelebihannya adalah:

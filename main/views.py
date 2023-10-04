@@ -16,10 +16,37 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 
 
+def edit_product(request, id):
+    # Get product berdasarkan ID
+    product = Product.objects.get(pk = id)
+
+    # Set product sebagai instance dari form
+    form = ProductForm(request.POST or None, instance=product)
+
+    if form.is_valid() and request.method == "POST":
+        # Simpan form dan kembali ke halaman awal
+        form.save()
+        return HttpResponseRedirect(reverse('main:show_main'))
+
+    context = {'form': form}
+    return render(request, "edit_product.html", context)
+
+
 def delete_product_by_one(request, product_id):
     try:
         product = Product.objects.get(pk=product_id)
         product.delete_product_by_one()
+        if product.jumlah_mahasiswa == 00:
+            product.delete()
+        return HttpResponseRedirect(reverse('main:show_main'))
+    except Product.DoesNotExist:
+        # Handle the case where the product with the given ID does not exist.
+        return HttpResponse('Product not found', status=404)
+    
+def add_product_by_one(request, product_id):
+    try:
+        product = Product.objects.get(pk=product_id)
+        product.add_product_by_one()
         return HttpResponseRedirect(reverse('main:show_main'))
     except Product.DoesNotExist:
         # Handle the case where the product with the given ID does not exist.

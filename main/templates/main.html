@@ -8,25 +8,81 @@
     <!-- Include your external fonts here -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=R-Flex&display=swap" rel="stylesheet"> <!-- Add R-Flex font -->
+    <link rel="stylesheet" href="globals.css" />
+    <link rel="stylesheet" href="styleguide.css" />
+    <link rel="stylesheet" href="style.css" />
     <style>
         /* Add custom CSS styles here */
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: #8999D3; /* Use the color you provided as the background */
+            background-color: #8999d3b8; /* Use the color you provided as the background */
             margin: 0;
             padding: 0;
         }
 
+        .input-field {
+        display: flex;
+        width: 260px;
+        align-items: center;
+        gap: 32px;
+        padding: 10px 32px;
+        position: relative;
+        border-radius: 12px;
+        overflow: hidden;
+        border: 2px solid;
+        border-color: transparent;
+        }
+
+
+
+        .input-field .frame {
+        display: inline-flex;
+        align-items: flex-start;
+        gap: 2px;
+        position: relative;
+        flex: 0 0 auto;
+        border-color: #4c6195;
+        }
+
+        .input-field .placeholder {
+        position: relative;
+        width: fit-content;
+        margin-top: -1px;
+        font-family:  "Inter-Medium", Helvetica;
+        font-weight: 500;
+        color: rgba(0, 0, 0, 0.915);
+        font-size: 16px;
+        text-align: center;
+        letter-spacing: 0px;
+        line-height: 150%;
+        white-space: nowrap;
+        font-style: normal;
+        background: transparent;
+        border: none;
+        padding: 0;
+        }
+
+        
+        .headerTable {
+            display: flex;
+            width: 592px;
+            height: 56px;
+            padding: 12px;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 16px;
+            border: 1px solid var(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.10));
+        }
         .container {
-            width: 80%;
+            max-width: 1200px; /* Set a maximum width for the content */
             margin: 0 auto;
             background-color: #fff;
             padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 10px rgba(220, 125, 125, 0.1);
         }
 
         .header-category {
-            background-color: #363636;
+            background-color: rgb(106, 160, 176);;
             color: #fff;
             padding: 20px;
             text-align: center;
@@ -54,11 +110,12 @@
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
+            table-layout:auto;
         }
 
         .table-category th, .table-category td {
             border: 1px solid #ddd;
-            padding: 10px;
+            padding: 5px;
             text-align: left;
         }
 
@@ -82,9 +139,10 @@
             text-decoration: none;
             background-color: #007bff;
             color: #fff;
-            padding: 10px 20px;
+            padding: 3px 6px;
             border-radius: 5px;
             transition: background-color 0.3s;
+            margin-right: 10px; /* Add some space between buttons */
         }
 
         .add-product-button a:hover {
@@ -93,17 +151,70 @@
 
         /* Adjust button styling */
         button {
-            background-color: #007bff;
+            background-color: #3e85d1;
             color: #fff;
-            padding: 10px 20px;
+            padding: 5px 10px;
             border: none;
             border-radius: 5px;
             margin-top: 10px;
             cursor: pointer;
         }
+        .table-category tr:nth-last-child(2) td {
+    /* Add your desired styles for the last row's columns here */
+    background-color: #4c6195; /* Change this to the desired color */
+    color: #fff; /* Change text color if needed */
+}
+        .table-category td:last-child{
+            background-color: #ffffff;
+            border-color: #ffffff;
+        }
 
+        .table-category tr:nth-last-child(2) td:last-child{
+            background-color: #ffffff;
+            border-color: #ffffff;
+        }
+
+    .footer {
+        padding: 20px;
+        width: 100%;
+        bottom: 0;
+        margin-bottom: 0;
+    }
+
+    .table-category tr:nth-last-child(1) td {
+        /* Add your desired styles for the last row's columns here */
+        background-color: #22ab5dd6; /* Change this to the desired color */
+        color: #fff; /* Change text color if needed */
+    }
         button:hover {
             background-color: #0056b3;
+        }
+
+        /* Media Query for smaller screens */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .header-category h3 {
+                font-size: 20px;
+            }
+
+            .nama-kelas {
+                font-size: 14px;
+            }
+
+            .table-category th, .table-category td {
+                padding: 8px;
+            }
+
+            .add-product-button a {
+                padding: 8px 16px;
+            }
+
+            button {
+                padding: 8px 16px;
+            }
         }
     </style>
     <title>Inventory</title>
@@ -117,38 +228,52 @@
         </div>
         <div class="table-category">
             <!-- Check if there are products to display -->
+            
             {% if products %}
                 <table>
                     <tr>
+                        <th>Edit</th>
                         <th>Nama Kelas</th>
                         <th>Kelas</th>
                         <th>Deskripsi kelas</th>
                         <th>Jumlah Mahasiswa</th>
                         <th>Nilai</th>
                     </tr>
+                    
                     {% for product in products %}
                         <tr>
+                            <td><form method="post" action="{% url 'main:edit_product' product.id %}">
+                                {% csrf_token %}
+                                <button type="submit">Edit</button>
+                            </form></td>
                             <td>{{ product.name }}</td>
                             <td>{{ product.kelas }}</td>
                             <td>{{ product.deskripsi }}</td>
-                            <td>{{ product.jumlah_mahasiswa }}</td>
+                            <td><form method="post" action="{% url 'main:add_product_by_one' product.id %}">
+                                {% csrf_token %}
+                                <button type="submit">+</button>
+                            </form>{{ product.jumlah_mahasiswa }}<form method="post" action="{% url 'main:delete_product_by_one' product.id %}">
+                                {% csrf_token %}
+                                <button type="submit">-</button>
+                            </form>
+                                
+                                </td>
                             <td>{{ product.nilai }}</td>
+                            
                             <td>
                                 <form method="post" action="{% url 'main:delete_product' product.id %}">
                                     {% csrf_token %}
                                     <button type="submit">Delete</button>
                                 </form>
                             </td>
-                            <td><form method="post" action="{% url 'main:delete_product_by_one' product.id %}">
-                                {% csrf_token %}
-                                <button type="submit">Delete By One</button>
-                            </form></td>
+                            
                         </tr>
                     {% endfor %}
                     <tr>
-                        <td colspan="3"></td>
+                        <td colspan="2"></td>
                         <td>Total Mahasiswa:</td>
                         <td>{{ total_jumlah_mahasiswa }}</td>
+                        <td colspan="4"></td>
                     </tr>
                 </table>
             {% else %}
@@ -167,4 +292,16 @@
     </div>
 </div>
 </body>
+<footer>
+<div class="container" style="background-color: #204bb7e9;"
+    <p>
+        &copy; bisa ga ya
+        All rights are reserved to those that need it
+    </p>
+    <p>
+        @m.arraya.m
+    </p>
+
+</footer>
+
 </html>
