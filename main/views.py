@@ -3,7 +3,7 @@ from django.urls import reverse
 from main.forms import ProductForm
 from main.models import Product  # Assuming your Product model is defined in 'main.models'
 from django.db.models import Sum
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseNotFound
 from django.core import serializers
 from django.shortcuts import redirect
 from django.contrib.auth.forms import UserCreationForm
@@ -14,6 +14,7 @@ from django.contrib.auth.decorators import login_required
 import datetime
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.views.decorators.csrf import csrf_exempt
 
 
 def edit_product(request, id):
@@ -26,7 +27,7 @@ def edit_product(request, id):
     if form.is_valid() and request.method == "POST":
         # Simpan form dan kembali ke halaman awal
         form.save()
-        return HttpResponseRedirect(reverse('main:show_main'))
+        return HttpResponseRedirect(reverse('main:pantex'))
 
     context = {'form': form}
     return render(request, "edit_product.html", context)
@@ -38,7 +39,7 @@ def delete_product_by_one(request, product_id):
         product.delete_product_by_one()
         if product.jumlah_mahasiswa == 00:
             product.delete()
-        return HttpResponseRedirect(reverse('main:show_main'))
+        return HttpResponseRedirect(reverse('main:pantex'))
     except Product.DoesNotExist:
         # Handle the case where the product with the given ID does not exist.
         return HttpResponse('Product not found', status=404)
@@ -47,7 +48,7 @@ def add_product_by_one(request, product_id):
     try:
         product = Product.objects.get(pk=product_id)
         product.add_product_by_one()
-        return HttpResponseRedirect(reverse('main:show_main'))
+        return HttpResponseRedirect(reverse('main:pantex'))
     except Product.DoesNotExist:
         # Handle the case where the product with the given ID does not exist.
         return HttpResponse('Product not found', status=404)
@@ -57,7 +58,7 @@ def delete_product(request, product_id):
         product = Product.objects.get(pk=product_id)
         if product.user == request.user:  # Ensure the user can only delete their own products
             product.delete()
-            return HttpResponseRedirect(reverse('main:show_main'))
+            return HttpResponseRedirect(reverse('main:pantex'))
         else:
             return HttpResponse('Unauthorized', status=401)  # User is not authorized to delete this product
     except Product.DoesNotExist:
@@ -84,6 +85,67 @@ def login_user(request):
     context = {}
     return render(request, 'login.html', context)
 
+def pantex(request):
+
+    last_login = request.COOKIES.get('last_login', 'Cookie not found')  # Get the cookie or provide a default value
+    products = Product.objects.filter(user=request.user)
+    total_jumlah_mahasiswa = products.aggregate(total=Sum('jumlah_mahasiswa'))['total']
+    user_data = {
+        'user': request.user.username,
+        'kelas_user': 'PBP A',
+        'NPM': "2206082101"
+    }
+
+    application_data = {
+        'nama_aplikasi': 'REVIEW MATKUL',
+        'tanggal_dibuat': '13/09/2023'
+    }
+
+    # Pass the products, user_data, and application_data to the template
+    context = {
+        'products': products,
+        'user_data': user_data,
+        'application_data': application_data,
+        'total_jumlah_mahasiswa': total_jumlah_mahasiswa,
+        'last_login': last_login,
+    }
+    return render(request, 'pantex.html', context)
+
+def get_product_json(request):
+    product_item = Product.objects.all()
+    return HttpResponse(serializers.serialize('json', product_item))
+
+@csrf_exempt
+def add_product_ajax(request):
+    form = ProductForm(request.POST or None)
+    if request.method == 'POST':
+        create_product(request=request)
+        return HttpResponse(b"CREATED", status=201)
+    return HttpResponseNotFound()
+
+@csrf_exempt
+def edit_product_ajax(request):
+    form = ProductForm(request.POST or None)
+    if request.method == 'POST':
+        edit_product(request=request)
+        return HttpResponse(b"CREATED", status=201)
+    return HttpResponseNotFound()
+
+def edit_product(request, id):
+    # Get product berdasarkan ID
+    product = Product.objects.get(pk = id)
+
+    # Set product sebagai instance dari form
+    form = ProductForm(request.POST or None, instance=product)
+
+    if form.is_valid() and request.method == "POST":
+        # Simpan form dan kembali ke halaman awal
+        form.save()
+        return HttpResponseRedirect(reverse('main:pantex'))
+
+    context = {'form': form}
+    return render(request, "edit_product.html", context)
+
 def register(request):
     form = UserCreationForm()
 
@@ -103,12 +165,13 @@ def create_product(request):
         product = form.save(commit=False)
         product.user = request.user
         product.save()
-        return HttpResponseRedirect(reverse('main:show_main'))
+        return HttpResponseRedirect(reverse('main:pantex'))
 
     context = {'form': form}
     return render(request, "create_product.html", context)
 
 def show_xml(request):
+    
     data = Product.objects.all()
     return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
 

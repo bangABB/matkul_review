@@ -1,7 +1,19 @@
 Link ke matkul review : https://matkul-review.adaptable.app/main/
 link ke github matkul-review : https://github.com/bangABB/matkul_review
 
-
+[TUGAS 6]
+1. Mengubah tugas sebelumnya menjadi ajax DONE
+        walau ga semua fitur tapi bisa
+    - Ya bisa ajax get
+    - Bisa dikit ajax post, tapi refresh masih ga bisa....
+    - sisa fitur aman
+2. - synchronus artinya dia berjalan saat di perintahkan user, sehingga dia bersifat blocking pada command lain, asinkronus tidak, dia berjalan tidak blocking dan proses lain dapat berjalan juga
+    - yakni ketika pengguna ngeklik button yang modal, akan muncul pop up dan ketika user klik save, maka akan di buat sebuah tampilan baru yg telah di **replace**
+    - refresh yang tadi, jadi seteiap kali kita add sesuatu, dia akan refresh sendiri
+    - saya lebih suka ini dari segi desain, Fetch api saya rasa juga lebih enak buat load sesuatu yg cepet... tapi mungkin fetch api lebih mudah diserang karna dia berbentuk scripting javascript? mungkin...
+    - 1. ajax get --> mengubah button dan membuat contoh modals nya (buat yg popup)
+      2. link ke rout di urls yg sesuai
+      3. seharusnya lgsg refresh sih, tapi ini saya ga bisa :D
 
 [TUGAS 5]
 1. Kustomisasi :
