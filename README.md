@@ -1,5 +1,6 @@
 Link ke matkul review : https://matkul-review.adaptable.app/main/
 link ke github matkul-review : https://github.com/bangABB/matkul_review
+link ke matkul review yg di dokku = masabil-arraya-tugas.pbp.cs.ui.ac.id (walaupun blm bisa gatau knp, padahal pas di deploy udah bener...)
 
 [TUGAS 6]
 1. Mengubah tugas sebelumnya menjadi ajax DONE
